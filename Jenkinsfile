@@ -31,14 +31,14 @@ pipeline {
     //             SONAR_URL = 'http://localhost:9000'
     //         }
     //         steps {
-    //             withcredentials([string(credentialsID:sonarqube, variable: 'SONAR_TOKEN')]) {
+    //             withCredentials([string(credentialsID:sonarqube, variable: 'SONAR_TOKEN')]) {
     //                 sh 'cd Spring-boot-Project && mvn sonar:sonar -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN'
     //         }
     //     }
     // }
 
         stage('Configure AWS CLI') {
-            withcredentials([string(credentialsID: 'aws-credentials', usernameVariable: AWS_ACCESS_KEY_ID, passwordVariable: AWS_SECRET_ACCESS_KEY)]) {
+            withCredentials([string(credentialsID: 'aws-credentials', usernameVariable: AWS_ACCESS_KEY_ID, passwordVariable: AWS_SECRET_ACCESS_KEY)]) {
                steps {
                    sh 'aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID'
                    sh 'aws configure set aws_secret_access_key_id $AWS_SECRET_ACCESS_KEY'

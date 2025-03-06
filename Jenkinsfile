@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'sudipta244/docker-agent-alipne:v2'
+            image 'sudipta244/docker-agent-alpine:v2'
             args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }

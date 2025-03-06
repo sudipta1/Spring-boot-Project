@@ -23,7 +23,7 @@ pipeline {
         stage('build and test') {
             steps {
                 sh 'ls -ltr'
-                sh 'cd Spring-boot-Project && mvn clean install'
+                sh 'cd mvn clean install'
             }
         }
     //     stage('static code analysis') {
@@ -58,7 +58,7 @@ pipeline {
                 IMAGE_TAG = 'java/spring-boot:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/java/spring-boot:$BUILD_NO'
             }
            steps {
-            sh 'cd Spring-boot-Project && docker build -t $IMAGE_TAG .'
+            sh 'docker build -t $IMAGE_TAG .'
             sh 'docker push $IMAGE_TAG'
            } 
 

@@ -23,7 +23,7 @@ pipeline {
         stage('build and test') {
             steps {
                 sh 'ls -ltr'
-                sh 'cd mvn clean install'
+                sh 'mvn clean install'
             }
         }
     //     stage('static code analysis') {

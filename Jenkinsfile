@@ -55,7 +55,7 @@ pipeline {
 
         stage('Build and Push Image') {
             environment {
-                IMAGE_TAG = 'java/spring-boot:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/java/spring-boot:$BUILD_NO'
+                IMAGE_TAG = '$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$BUILD_NO'
             }
            steps {
             sh 'docker build -t $IMAGE_TAG .'

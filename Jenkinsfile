@@ -53,16 +53,16 @@ pipeline {
             }
         }
 
-        // stage('Build and Push Image') {
-        //     environment {
-        //         DOCKER_IMAGE = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${BUILD_NO}"
-        //     }
-        //    steps {
-        //     sh 'docker build -t $DOCKER_IMAGE .'
-        //     sh 'docker push $DOCKER_IMAGE'
-        //    }
+        stage('Build and Push Image') {
+            environment {
+                DOCKER_IMAGE = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${BUILD_NUMBER}"
+            }
+           steps {
+            sh 'docker build -t $DOCKER_IMAGE .'
+            sh 'docker push $DOCKER_IMAGE'
+           }
 
-        // }
+        }
 
         stage('Update the Deployment file') {
             environment {
@@ -76,10 +76,10 @@ pipeline {
                          git config --global --add safe.directory '*'
                          git config --global user.email "sudipta.nayak@nayak.com"
                          git config --global user.name "Sudipta Nayak"
-                         BUILD_NO = ${BUILD_NO}
-                         sed -i "s|null|${BUILD_NO}|g" deployment.yml
+                         BUILD_NUMBER = ${BUILD_NUMBER}
+                         sed -i "s|null|${BUILD_NUMBER}|g" deployment.yml
                          git add deployment.yml
-                         git commit -m "Updated deployment.yml into version ${BUILD_NO}"
+                         git commit -m "Updated deployment.yml into version ${BUILD_NUMBER}"
                          git push https://GITHUB_TOKEN@github.com/${GIT_USERNAME}/${GIT_REPO} HEAD:main
 
                         '''

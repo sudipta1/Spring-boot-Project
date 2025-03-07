@@ -69,7 +69,7 @@ pipeline {
 
                 GIT_REPO = 'Spring-boot-Project'
                 GIT_USERNAME = 'sudipta1'
-
+            }
                 steps {
                     withCredentials(string(credentialsId: 'sudipta1', variable: 'GITHUB_TOKEN')) {
                         sh '''
@@ -88,5 +88,4 @@ pipeline {
             }
         }
 
-    }
     }

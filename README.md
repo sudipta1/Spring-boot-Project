@@ -54,8 +54,9 @@ Get the Secret Password and covert it to {echo | base64 -d}
 kubectl port-forward svc/argocd-server -n argocd 8000:443                
 Create a Secret file on argocd namespace :                
 
+# Deploy the Secret                    
 kubectl create secret docker-registry ecr-secret \            
---docker-server=365657944743.dkr.ecr.us-east-1.amazonaws.com \                    
+--docker-server=*********.dkr.ecr.us-east-1.amazonaws.com \                    
 --docker-username=AWS \                
 --docker-password=$(aws ecr get-login-password --region us-east-1) \                
 --namespace argocd

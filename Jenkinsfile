@@ -77,7 +77,7 @@ pipeline {
                          git config --global user.email "sudipta.nayak@nayak.com"
                          git config --global user.name "Sudipta Nayak"
                          BUILD_NUMBER = ${BUILD_NUMBER}
-                         sed -i "s|null|${BUILD_NUMBER}|g" deployment.yml
+                         sed -i "s/35/${BUILD_NUMBER}/g" deployment.yml
                          git add deployment.yml
                          git commit -m "Updated deployment.yml into version ${BUILD_NUMBER}"
                          git push https://GITHUB_TOKEN@github.com/${GIT_USERNAME}/${GIT_REPO} HEAD:main
@@ -87,5 +87,4 @@ pipeline {
                 }
             }
         }
-
     }

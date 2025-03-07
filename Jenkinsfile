@@ -10,7 +10,6 @@ pipeline {
         AWS_REGION = 'us-east-1'
         ECR_REPOSITORY = 'java/spring-boot'
         AWS_ACCOUNT_ID = '365657944743'
-        BUILD_NO = '0'
     }
 
     stages {
@@ -72,7 +71,7 @@ pipeline {
                 GIT_USERNAME = 'sudipta1'
 
                 steps {
-                    withCredentials(string(credentialsId: $GIT_USERNAME, variable: 'GITHUB_TOKEN')) {
+                    withCredentials(string(credentialsId: 'sudipta1', variable: 'GITHUB_TOKEN')) {
                         sh '''
                          git config --global --add safe.directory '*'
                          git config --global user.email "sudipta.nayak@nayak.com"
@@ -81,7 +80,7 @@ pipeline {
                          sed -i "s|null|${BUILD_NO}|g" deployment.yml
                          git add deployment.yml
                          git commit -m "Updated deployment.yml into version ${BUILD_NO}"
-                         git push https://GITHUB_TOKRN@github.com/${GIT_USERNAME}/${GIT_REPO} HEAD:main
+                         git push https://GITHUB_TOKEN@github.com/${GIT_USERNAME}/${GIT_REPO} HEAD:main
 
                          '''
                     }

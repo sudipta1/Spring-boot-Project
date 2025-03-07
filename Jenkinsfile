@@ -10,6 +10,7 @@ pipeline {
         AWS_REGION = 'us-east-1'
         ECR_REPOSITORY = 'java/spring-boot'
         AWS_ACCOUNT_ID = '365657944743'
+        BUILD_NO = '0'
     }
 
     stages {

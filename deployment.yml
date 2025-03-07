@@ -16,7 +16,6 @@ spec:
     spec:
       containers:
         - name: spring-boot-app
-          image: sudipta244/docker-agent-alpine:v2
+          image: 365657944743.dkr.ecr.us-east-1.amazonaws.com/java/spring-boot:null
           ports:
             - containerPort: 8080
-

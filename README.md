@@ -24,7 +24,7 @@ USER jenkins
 
 ENTRYPOINT ["jenkins-agent"]            
 
-# Defined stages on Jenkinefile
+# Defined stages on Jenkinsfile
 stage1: checkout                                     
 stage2 : Build and Test(Maven)                    
 stage3: static code analysis(Sonarqube)                

@@ -80,7 +80,7 @@ pipeline {
                          sed -i 's/null/${BUILD_NUMBER}/g' deployment.yml
                          git add deployment.yml
                          git commit -m "Updated deployment.yml into version ${BUILD_NUMBER}"
-                         git push https://GITHUB_TOKEN@github.com/${GIT_USERNAME}/${GIT_REPO} HEAD:main
+                         git push https://${GITHUB_TOKEN}@github.com/${GIT_USERNAME}/${GIT_REPO} HEAD:main
 
                         '''
                     }

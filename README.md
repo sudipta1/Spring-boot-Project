@@ -33,6 +33,19 @@ stage4: Login to ECR
 stage5: Build and Push the image into ECR                
 stage6: Update the deployment.yml file with new build image                
 
+# Plugins
+Docker Pipeline plugin                                        
+Sonarqube Plugin                    
+git plugin                    
+maven plugin                    
+
+# Credentials
+sonarqube authentication with secrettext                
+github credential authentication with secrettext                        
+AWS Credential with username and password                            
+Docker hub credential setup to push the image in dockerhub                
+
+
 
 
 

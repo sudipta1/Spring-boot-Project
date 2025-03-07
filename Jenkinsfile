@@ -55,11 +55,11 @@ pipeline {
 
         stage('Build and Push Image') {
             environment {
-                IMAGE_TAG = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${BUILD_NO}"
+                DOCKER_IMAGE = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${BUILD_NO}"
             }
            steps {
-            sh 'docker build -t $IMAGE_TAG .'
-            sh 'docker push $IMAGE_TAG'
+            sh 'docker build -t $DOCKER_IMAGE .'
+            sh 'docker push $DOCKER_IMAGE'
            }
 
         }
@@ -81,7 +81,7 @@ pipeline {
                          git add deployment.yml
                          git commit -m "Updated deployment.yml into version ${BUILD_NO}"
                          git push https://GITHUB_TOKRN@github.com/${GIT_USERNAME}/${GIT_REPO} HEAD:main
-                         
+
                          '''
                     }
                 }

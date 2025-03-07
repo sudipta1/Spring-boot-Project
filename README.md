@@ -8,16 +8,16 @@ Built CI on jenkins, used Docker agent for running the pipeline which will use h
 
 FROM jenkins/inbound-agent:latest                     
 USER root                       
-**Install Java, Maven, AWS CLI, Docker**
+**Install Java, Maven, AWS CLI, Docker**                
 RUN apt-get update && \              
     apt-get install -y openjdk-17-jdk maven awscli docker.io && \           
     apt-get clean               
-**Set Jenkins agent workspace**
+**Set Jenkins agent workspace**                
 RUN mkdir -p /home/jenkins/agent              
 WORKDIR /home/jenkins/agent               
-**Switch back to jenkins user**
+**Switch back to jenkins user**                
 USER jenkins              
-**Entry point for Jenkins agent**
+**Entry point for Jenkins agent**                
 ENTRYPOINT ["jenkins-agent"]            
 
 # Defined stages on Jenkinefile

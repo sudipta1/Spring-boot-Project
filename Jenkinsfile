@@ -31,7 +31,7 @@ pipeline {
     //             SONAR_URL = 'http://localhost:9000'
     //         }
     //         steps {
-    //             withCredentials([string(credentialsId:sonarqube, variable: 'SONAR_TOKEN')]) {
+    //             withCredentials([string(credentialsId:'sonarqube', variable: 'SONAR_TOKEN')]) {
     //                 sh 'cd Spring-boot-Project && mvn sonar:sonar -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN'
     //         }
     //     }
@@ -53,16 +53,16 @@ pipeline {
             }
         }
 
-        stage('Build and Push Image') {
-            environment {
-                DOCKER_IMAGE = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${BUILD_NO}"
-            }
-           steps {
-            sh 'docker build -t $DOCKER_IMAGE .'
-            sh 'docker push $DOCKER_IMAGE'
-           }
+        // stage('Build and Push Image') {
+        //     environment {
+        //         DOCKER_IMAGE = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${BUILD_NO}"
+        //     }
+        //    steps {
+        //     sh 'docker build -t $DOCKER_IMAGE .'
+        //     sh 'docker push $DOCKER_IMAGE'
+        //    }
 
-        }
+        // }
 
         stage('Update the Deployment file') {
             environment {
@@ -71,7 +71,7 @@ pipeline {
                 GIT_USERNAME = 'sudipta1'
             }
                 steps {
-                    withCredentials(string(credentialsId: sudipta1, variable: 'GITHUB_TOKEN')) {
+                    withCredentials([string(credentialsId: 'sudipta1', variable: 'GITHUB_TOKEN')]) {
                         sh '''
                          git config --global --add safe.directory '*'
                          git config --global user.email "sudipta.nayak@nayak.com"
@@ -82,7 +82,7 @@ pipeline {
                          git commit -m "Updated deployment.yml into version ${BUILD_NO}"
                          git push https://GITHUB_TOKEN@github.com/${GIT_USERNAME}/${GIT_REPO} HEAD:main
 
-                         '''
+                        '''
                     }
                 }
             }

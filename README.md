@@ -43,7 +43,22 @@ maven plugin
 sonarqube authentication with secrettext                
 github credential authentication with secrettext                        
 AWS Credential with username and password                            
-Docker hub credential setup to push the image in dockerhub                
+Docker hub credential setup to push the image in dockerhub         
+
+# ArgoCD setup                        
+
+helm repo add argo https://argoproj.github.io/argo-helm                
+helm repo update                
+helm install argocd argo/argo-cd --namespace argocd --create-namespace                
+Get the Secret Password and covert it to {echo | base64 -d}                
+kubectl port-forward svc/argocd-server -n argocd 8000:443                
+Create a Secret file on argocd namespace :                
+
+kubectl create secret docker-registry ecr-secret \            
+--docker-server=365657944743.dkr.ecr.us-east-1.amazonaws.com \                    
+--docker-username=AWS \                
+--docker-password=$(aws ecr get-login-password --region us-east-1) \                
+--namespace argocd
 
 
 

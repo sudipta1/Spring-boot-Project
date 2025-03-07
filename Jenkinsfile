@@ -31,7 +31,7 @@ pipeline {
     //             SONAR_URL = 'http://localhost:9000'
     //         }
     //         steps {
-    //             withCredentials([string(credentialsID:sonarqube, variable: 'SONAR_TOKEN')]) {
+    //             withCredentials([string(credentialsId:sonarqube, variable: 'SONAR_TOKEN')]) {
     //                 sh 'cd Spring-boot-Project && mvn sonar:sonar -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN'
     //         }
     //     }
@@ -39,7 +39,7 @@ pipeline {
 
         stage('Configure AWS CLI') {
             steps {
-            withCredentials([string(credentialsID: 'aws-credentials', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+            withCredentials([string(credentialsId: 'aws-credentials', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                    sh 'aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID'
                    sh 'aws configure set aws_secret_access_key_id $AWS_SECRET_ACCESS_KEY'
                    sh 'aws configure set default.region $AWS_REGION'

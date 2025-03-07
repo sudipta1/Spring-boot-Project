@@ -77,7 +77,7 @@ pipeline {
                          git config --global user.email "sudipta.nayak@nayak.com"
                          git config --global user.name "Sudipta Nayak"
                          BUILD_NO = ${BUILD_NO}
-                         sed -i "s|replace_image_tag|${BUILD_NO}|g" deployment.yml
+                         sed -i "s|null|${BUILD_NO}|g" deployment.yml
                          git add deployment.yml
                          git commit -m "Updated deployment.yml into version ${BUILD_NO}"
                          git push https://GITHUB_TOKRN@github.com/${GIT_USERNAME}/${GIT_REPO} HEAD:main

@@ -92,20 +92,31 @@ pipeline {
         }
 
     post {
+        always {
+            withCredentials([string(credentialsId: SLACK_CREDENTIALS_ID, variable: 'WEBHOOK_URL')]) {
+                slackSend(channel: SLACK_CHANNEL, 
+                          color: "warning", 
+                          message: "⚠️ *BUILD STATUS*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} completed with status `${currentBuild.currentResult}` (<${env.BUILD_URL}|View Build>)",
+                          webhookUrl: WEBHOOK_URL)
+            }
+        }
+
         success {
-            withCredentials([string(credentialsId: 'slack-webhook', variable: 'WEBHOOK_URL')]) {
-            slackSend(channel: SLACK_CHANNEL, 
-                      color: "good", 
-                      message: "✅ *SUCCESS*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} completed successfully! (<${env.BUILD_URL}|View Build>)")
-                 }
-           }
+            withCredentials([string(credentialsId: SLACK_CREDENTIALS_ID, variable: 'WEBHOOK_URL')]) {
+                slackSend(channel: SLACK_CHANNEL, 
+                          color: "good", 
+                          message: "✅ *SUCCESS*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} completed successfully! (<${env.BUILD_URL}|View Build>)",
+                          webhookUrl: WEBHOOK_URL)
+            }
+        }
 
         failure {
-            withCredentials([string(credentialsId: 'slack-webhook', variable: 'WEBHOOK_URL')]) {
-            slackSend(channel: SLACK_CHANNEL, 
-                      color: "danger", 
-                      message: "❌ *FAILED*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} failed! (<${env.BUILD_URL}|View Build>)")
+            withCredentials([string(credentialsId: SLACK_CREDENTIALS_ID, variable: 'WEBHOOK_URL')]) {
+                slackSend(channel: SLACK_CHANNEL, 
+                          color: "danger", 
+                          message: "❌ *FAILED*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} failed! (<${env.BUILD_URL}|View Build>)",
+                          webhookUrl: WEBHOOK_URL)
+            }
         }
     }
-  }
 }

@@ -89,29 +89,15 @@ pipeline {
             }
         }
 
-    post {
-        always {
-            withCredentials([string(credentialsId: 'slack-webhook', variable: 'SLACK_TOKEN')]) {
-                slackSend(channel: 'all_owner_devops', 
-                          color: "warning", 
-                          message: "⚠️ *BUILD STATUS*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} completed with status `${currentBuild.currentResult}` (<${env.BUILD_URL}|View Build>)")
-            }
-        }
-
-        success {
-            withCredentials([string(credentialsId: 'slack-webhook', variable: 'SLACK_TOKEN')]) {
-                slackSend(channel: 'all_owner_devops', 
-                          color: "good", 
-                          message: "✅ *SUCCESS*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} completed successfully! (<${env.BUILD_URL}|View Build>)")
-            }
-        }
-
-        failure {
-            withCredentials([string(credentialsId: 'slack-webhook', variable: 'SLACK_TOKEN')]) {
-                slackSend(channel: 'all_owner_devops', 
-                          color: "danger", 
-                          message: "❌ *FAILED*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} failed! (<${env.BUILD_URL}|View Build>)")
-            }
-        }
+post {
+    success {
+      slackSend channel: '#all-owner-devops', message: "✅ Build #${BUILD_NUMBER} succeeded! 🎉"
     }
+    failure {
+      slackSend channel: '#all-owner-devops', message: "❌ Build #${BUILD_NUMBER} failed! Check Jenkins logs. 🔍"
+    }
+    always {
+      slackSend channel: '#all-owner-devops', message: "📢 Build #${BUILD_NUMBER} completed."
+    }
+  }
 }

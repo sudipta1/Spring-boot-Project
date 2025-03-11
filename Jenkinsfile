@@ -10,7 +10,6 @@ pipeline {
         AWS_REGION = 'us-east-1'
         ECR_REPOSITORY = 'java/spring-boot'
         AWS_ACCOUNT_ID = '365657944743'
-        SLACK_CHANNEL = 'all_owner_devops'
     }
 
     stages {
@@ -93,7 +92,7 @@ pipeline {
     post {
         always {
             withCredentials([string(credentialsId: 'slack-webhook', variable: 'SLACK_TOKEN')]) {
-                slackSend(channel: SLACK_CHANNEL, 
+                slackSend(channel: 'all_owner_devops', 
                           color: "warning", 
                           message: "⚠️ *BUILD STATUS*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} completed with status `${currentBuild.currentResult}` (<${env.BUILD_URL}|View Build>)")
             }
@@ -101,7 +100,7 @@ pipeline {
 
         success {
             withCredentials([string(credentialsId: 'slack-webhook', variable: 'SLACK_TOKEN')]) {
-                slackSend(channel: SLACK_CHANNEL, 
+                slackSend(channel: 'all_owner_devops', 
                           color: "good", 
                           message: "✅ *SUCCESS*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} completed successfully! (<${env.BUILD_URL}|View Build>)")
             }
@@ -109,7 +108,7 @@ pipeline {
 
         failure {
             withCredentials([string(credentialsId: 'slack-webhook', variable: 'SLACK_TOKEN')]) {
-                slackSend(channel: SLACK_CHANNEL, 
+                slackSend(channel: 'all_owner_devops', 
                           color: "danger", 
                           message: "❌ *FAILED*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} failed! (<${env.BUILD_URL}|View Build>)")
             }

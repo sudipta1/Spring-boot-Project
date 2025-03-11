@@ -92,7 +92,7 @@ pipeline {
 
     post {
         always {
-            withCredentials([string(credentialsId: 'slack-webhook', variable: 'WEBHOOK_URL')]) {
+            withCredentials([string(credentialsId: 'slack-webhook', variable: 'SLACK_TOKEN')]) {
                 slackSend(channel: SLACK_CHANNEL, 
                           color: "warning", 
                           message: "⚠️ *BUILD STATUS*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} completed with status `${currentBuild.currentResult}` (<${env.BUILD_URL}|View Build>)")
@@ -100,7 +100,7 @@ pipeline {
         }
 
         success {
-            withCredentials([string(credentialsId: 'slack-webhook', variable: 'WEBHOOK_URL')]) {
+            withCredentials([string(credentialsId: 'slack-webhook', variable: 'SLACK_TOKEN')]) {
                 slackSend(channel: SLACK_CHANNEL, 
                           color: "good", 
                           message: "✅ *SUCCESS*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} completed successfully! (<${env.BUILD_URL}|View Build>)")
@@ -108,7 +108,7 @@ pipeline {
         }
 
         failure {
-            withCredentials([string(credentialsId: 'slack-webhook', variable: 'WEBHOOK_URL')]) {
+            withCredentials([string(credentialsId: 'slack-webhook', variable: 'SLACK_TOKEN')]) {
                 slackSend(channel: SLACK_CHANNEL, 
                           color: "danger", 
                           message: "❌ *FAILED*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} failed! (<${env.BUILD_URL}|View Build>)")

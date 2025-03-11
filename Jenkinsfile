@@ -11,7 +11,6 @@ pipeline {
         ECR_REPOSITORY = 'java/spring-boot'
         AWS_ACCOUNT_ID = '365657944743'
         SLACK_CHANNEL = 'all_owner_devops'
-        SLACK_CREDENTIALS_ID = 'slack-webhook'
     }
 
     stages {
@@ -93,7 +92,7 @@ pipeline {
 
     post {
         always {
-            withCredentials([string(credentialsId: SLACK_CREDENTIALS_ID, variable: 'WEBHOOK_URL')]) {
+            withCredentials([string(credentialsId: 'slack-webhook', variable: 'WEBHOOK_URL')]) {
                 slackSend(channel: SLACK_CHANNEL, 
                           color: "warning", 
                           message: "⚠️ *BUILD STATUS*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} completed with status `${currentBuild.currentResult}` (<${env.BUILD_URL}|View Build>)")
@@ -101,7 +100,7 @@ pipeline {
         }
 
         success {
-            withCredentials([string(credentialsId: SLACK_CREDENTIALS_ID, variable: 'WEBHOOK_URL')]) {
+            withCredentials([string(credentialsId: 'slack-webhook', variable: 'WEBHOOK_URL')]) {
                 slackSend(channel: SLACK_CHANNEL, 
                           color: "good", 
                           message: "✅ *SUCCESS*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} completed successfully! (<${env.BUILD_URL}|View Build>)")
@@ -109,7 +108,7 @@ pipeline {
         }
 
         failure {
-            withCredentials([string(credentialsId: SLACK_CREDENTIALS_ID, variable: 'WEBHOOK_URL')]) {
+            withCredentials([string(credentialsId: 'slack-webhook', variable: 'WEBHOOK_URL')]) {
                 slackSend(channel: SLACK_CHANNEL, 
                           color: "danger", 
                           message: "❌ *FAILED*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} failed! (<${env.BUILD_URL}|View Build>)")

@@ -10,6 +10,8 @@ pipeline {
         AWS_REGION = 'us-east-1'
         ECR_REPOSITORY = 'java/spring-boot'
         AWS_ACCOUNT_ID = '365657944743'
+        SLACK_CHANNEL = 'all_owner_devops'
+        SLACK_CREDENTIALS_ID = 'slack-webhook'
     }
 
     stages {
@@ -88,4 +90,20 @@ pipeline {
                 }
             }
         }
+
+        post {
+            withCredentials([string(credentialsId: 'slack-webhook', variable: 'WEBHOOK_URL')]) {
+        success {
+            slackSend(channel: 'all_owner_devops', 
+                      color: "good", 
+                      message: "✅ *SUCCESS*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} completed successfully! (<${env.BUILD_URL}|View Build>)")
+        }
+
+        failure {
+            slackSend(channel: 'all_owner_devops', 
+                      color: "danger", 
+                      message: "❌ *FAILED*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} failed! (<${env.BUILD_URL}|View Build>)")
+        }
     }
+ }
+}

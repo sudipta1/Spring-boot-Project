@@ -94,13 +94,13 @@ pipeline {
         post {
             withCredentials([string(credentialsId: 'slack-webhook', variable: 'WEBHOOK_URL')]) {
         success {
-            slackSend(channel: 'all_owner_devops', 
+            slackSend(channel: SLACK_CHANNEL, 
                       color: "good", 
                       message: "✅ *SUCCESS*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} completed successfully! (<${env.BUILD_URL}|View Build>)")
         }
 
         failure {
-            slackSend(channel: 'all_owner_devops', 
+            slackSend(channel: SLACK_CHANNEL, 
                       color: "danger", 
                       message: "❌ *FAILED*: Job `${env.JOB_NAME}` #${env.BUILD_NUMBER} failed! (<${env.BUILD_URL}|View Build>)")
         }

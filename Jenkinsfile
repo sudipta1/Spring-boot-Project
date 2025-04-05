@@ -89,15 +89,15 @@ pipeline {
             }
         }
 
-post {
-    success {
-      slackSend channel: '#all-owner-devops', message: "✅ Build #${BUILD_NUMBER} succeeded! 🎉"
-    }
-    failure {
-      slackSend channel: '#all-owner-devops', message: "❌ Build #${BUILD_NUMBER} failed! Check Jenkins logs. 🔍"
-    }
-    always {
-      slackSend channel: '#all-owner-devops', message: "📢 Build #${BUILD_NUMBER} completed."
-    }
-  }
-}
+// post {
+//     success {
+//       slackSend channel: '#all-owner-devops', message: "✅ Build #${BUILD_NUMBER} succeeded! 🎉"
+//     }
+//     failure {
+//       slackSend channel: '#all-owner-devops', message: "❌ Build #${BUILD_NUMBER} failed! Check Jenkins logs. 🔍"
+//     }
+//     always {
+//       slackSend channel: '#all-owner-devops', message: "📢 Build #${BUILD_NUMBER} completed."
+//     }
+//   }
+// }

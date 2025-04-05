@@ -26,16 +26,16 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-    //     stage('static code analysis') {
-    //         environment {
-    //             SONAR_URL = 'http://localhost:9000'
-    //         }
-    //         steps {
-    //             withCredentials([string(credentialsId:'sonarqube', variable: 'SONAR_TOKEN')]) {
-    //                 sh 'cd Spring-boot-Project && mvn sonar:sonar -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN'
-    //         }
-    //     }
-    // }
+        stage('static code analysis') {
+            environment {
+                SONAR_URL = 'http://34.131.165.131:9000/'
+            }
+            steps {
+                withCredentials([string(credentialsId:'sonarqube', variable: 'SONAR_TOKEN')]) {
+                    sh 'cd Spring-boot-Project && mvn sonar:sonar -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN'
+            }
+        }
+    }
 
         stage('Configure AWS CLI') {
             steps {

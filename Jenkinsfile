@@ -32,7 +32,7 @@ pipeline {
             }
             steps {
                 withCredentials([string(credentialsId:'sonarqube', variable: 'SONAR_TOKEN')]) {
-                    sh 'cd Spring-boot-Project && mvn sonar:sonar -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN'
+                    sh 'mvn sonar:sonar -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN'
             }
         }
     }

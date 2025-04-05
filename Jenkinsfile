@@ -77,7 +77,7 @@ pipeline {
                          git config --global user.email "sudipta.nayak@nayak.com"
                          git config --global user.name "Sudipta Nayak"
                          BUILD_NUMBER=${BUILD_NUMBER}
-                         sed -i "s/2/${BUILD_NUMBER}/g" k8s-manifests/deployment.yml
+                         sed -i "s/36/${BUILD_NUMBER}/g" k8s-manifests/deployment.yml
                          cat k8s-manifests/deployment.yml
                          git add k8s-manifests/deployment.yml
                          git commit -m "Updated deployment.yml into version ${BUILD_NUMBER}"
